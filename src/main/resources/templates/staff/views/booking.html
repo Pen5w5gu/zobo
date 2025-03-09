@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="Smarthr - Bootstrap staff Template">
+    <meta name="keywords"
+          content="staff, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+    <meta name="author" content="Dreamguys - Bootstrap staff Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title th:text="${title}"></title>
+    <base href="/">
+    <!-- DataTables CSS -->
+
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i&display=swap">
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/staff/assets/img/logo4.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/staff/assets/css/bootstrap.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="/staff/assets/css/font-awesome.min.css">
+
+    <!-- Lineawesome CSS -->
+    <link rel="stylesheet" href="/staff/assets/css/line-awesome.min.css">
+
+    <!-- Chart CSS -->
+    <link rel="stylesheet" href="/staff/assets/plugins/morris/morris.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <style>
+        #toast-container {
+            top: 70px;
+            right: 20px;
+        }
+    </style>
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/staff/assets/css/style.css">
+
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="/staff/assets/css/select2.min.css">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="/staff/assets/css/bootstrap-datetimepicker.min.css">
+
+    <!-- jQuery -->
+    <script src="/staff/assets/js/jquery-3.5.1.min.js"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="/staff/assets/js/popper.min.js"></script>
+    <script src="/staff/assets/js/bootstrap.min.js"></script>
+
+    <!-- Slimscroll JS -->
+    <script src="/staff/assets/js/jquery.slimscroll.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="/staff/assets/plugins/morris/morris.min.js"></script>
+    <script src="/staff/assets/plugins/raphael/raphael.min.js"></script>
+    <script src="/staff/assets/js/chart.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="/staff/assets/js/select2.min.js"></script>
+
+    <!-- Datetimepicker JS -->
+    <script src="/staff/assets/js/moment.min.js"></script>
+    <script src="/staff/assets/js/bootstrap-datetimepicker.min.js"></script>
+
+
+    <!-- Custom JS -->
+    <script src="/staff/assets/js/app.js"></script>
+    <link rel="stylesheet" href="/staff/assets/css/dataTables.bootstrap4.min.css">
+    <!-- AngularJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.3/angular.min.js"
+            integrity="sha512-KZmyTq3PLx9EZl0RHShHQuXtrvdJ+m35tuOiwlcZfs/rE7NZv29ygNA8SFCkMXTnYZQK2OX0Gm2qKGfvWEtRXA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Angular-route -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"
+            integrity="sha512-y1qD3hz/IAf8W4+/UMLZ+CN6LIoUGi7srWJ3r1R17Hid8x0yXe+1B5ZelkaL1Mjzedzu0Cg3HBvDG02SAgSzBw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- AngularJS config -->
+    <script src="/staff/config/app.js"></script>
+    <script src="/staff/config/routes.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+<body>
+
+<!-- Header -->
+<div th:include="staff/templates/header"></div>
+<!-- /Header -->
+
+<!-- Sidebar -->
+<div th:include="staff/templates/sidebar"></div>
+<!-- /Sidebar -->
+
+<!-- Main Wrapper -->
+<div class="main-wrapper">
+
+    <!-- Body  -->
+    <!-- Page Wrapper -->
+    <div class="page-wrapper">
+
+        <!-- Page Content -->
+        <div class="content container-fluid">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h3 class="page-title">Phiếu đặt sân</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin/index.html">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Phiếu đặt sân</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /Page Header -->
+
+            <!-- Search Filter -->
+            <div class="row filter-row">
+                <div class="col-sm-6 col-md-3">
+                    <label class="focus-label">Họ tên người đặt</label>
+                    <div class="form-group form-focus">
+                        <input type="text" id="keyword" class="form-control floating" placeholder="Nhập họ hoặc tên">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <label class="focus-label">Ngày đặt</label>
+                    <div class="form-group form-focus">
+                        <input type="date" id="datebook" class="form-control floating">
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <label class="focus-label">Trạng thái</label>
+                    <div class="form-group form-focus select-focus">
+                        <select id="status" class="select floating">
+                            <option value="">Tất cả</option>
+                            <option value="Đã Cọc">Đã Cọc</option>
+                            <option value="Hoàn Thành">Hoàn Thành</option>
+                            <option value="Hủy Đặt">Hủy Đặt</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex mt-4">
+                    <div class="col-sm-6 col-md-6 mt-1">
+                        <button class="mt-1 btn btn-success btn-block" onclick="search()">Tìm kiếm</button>
+                    </div>
+                    <div class="col-sm-6 col-md-6 mt-1">
+                        <button class="mt-1 btn btn-success btn-block" onclick="refresh()">Làm mới</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search Filter -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped custom-table">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Người dặt</th>
+                                <th>Ngày đặt</th>
+                                <th>Thành tiền</th>
+                                <th>Số điện thoại</th>
+                                <th>Ngày chơi</th>
+                                <th>Ca</th>
+                                <th>Trạng thái</th>
+                                <th class="text-center no-sort">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="bookingTable">
+                            <tr th:each="item, iterStat : ${bookings}">
+                                <td th:text="${iterStat.index + 1}"></td>
+                                <td th:text="${item.firstname + ' ' + item.lastname}"></td>
+                                <td th:text="${#dates.format(item.bookingdate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                                <td th:text="${#numbers.formatDecimal(item.bookingprice, 0, 'COMMA', 2, 'POINT')}"></td>
+                                <td th:text="${item.phone}"></td>
+                                <td th:text="${item.playdate}"></td>
+                                <td th:text="${item.starttime} +' - '+ ${item.endtime}"></td>
+                                <td th:text="${item.bookingstatus}"></td>
+                                <td class="text-center">
+                                    <button class="btn btn-danger" onclick="viewBooking(${item.bookingid})">
+                                        <i class="fa fa-eye m-r-5"></i> Xem
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Page Content -->
+
+        <!-- Edit Employee Modal -->
+        <div id="edit" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 1300px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Chi tiết phiếu đặt sân</h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Mã phiếu</label>
+                                        <input id="bookingId" class="form-control" type="text" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Người đặt</label>
+                                        <input id="customerName" class="form-control" type="text" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Ngày đặt</label>
+                                        <input id="bookingDate" class="form-control" type="text" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Số điện thoại</label>
+                                        <input id="phoneNumber" class="form-control" type="text" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Trạng thái</label>
+                                        <select id="bookingStatus" class="form-control">
+                                            <option value="Đã Cọc">Đã Cọc</option>
+                                            <option value="Hoàn Thành">Hoàn Thành</option>
+                                            <option value="Hủy Đặt">Hủy Đặt</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Thành tiền</label>
+                                        <input id="bookingPrice" class="form-control" type="text" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Ghi chú</label>
+                                        <textarea id="notes" class="form-control" readonly></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-primary" onclick="updateStatus()">Lưu</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast" style="position: fixed; top: 20px; right: 20px; z-index: 10000;"></div>
+        <script>
+            function showSuccessToast(message) {
+                var toastMessage = message || "Đã thêm phòng ban thành công.";
+                toast({
+                    title: "Thành công!",
+                    message: toastMessage,
+                    type: "success",
+                    duration: 5000,
+                });
+            }
+
+
+        </script>
+
+    </div>
+
+
+</div>
+<!-- /Main Wrapper -->
+<script>
+    let bookings = []; // Danh sách đặt sân lấy từ server
+
+    // Hàm tải dữ liệu từ server khi trang được load
+    function loadBookings() {
+        fetch('/sportify/api/bookings') // Thay bằng API thực tế của bạn
+            .then(response => response.json())
+            .then(data => {
+                bookings = data; // Lưu dữ liệu vào biến toàn cục
+                renderTable(bookings); // Hiển thị dữ liệu lên bảng
+            })
+            .catch(error => console.error('Lỗi khi tải dữ liệu:', error));
+    }
+
+    // Hàm hiển thị dữ liệu lên bảng
+    function renderTable(data) {
+        const tableBody = document.getElementById("bookingTable");
+        tableBody.innerHTML = ""; // Xóa dữ liệu cũ
+
+        data.forEach((item, index) => {
+            const row = `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${item.firstname} ${item.lastname}</td>
+                    <td>${new Date(item.bookingdate).toLocaleDateString()}</td>
+                    <td>${item.bookingprice.toLocaleString()} VNĐ</td>
+                    <td>${item.phone}</td>
+                    <td>${new Date(item.playdate).toLocaleDateString()}</td>
+                    <td>${item.starttime} - ${item.endtime}</td>
+                    <td>${item.bookingstatus}</td>
+                    <td class="text-center">
+                        <button class="btn btn-danger" onclick="viewBooking(${item.bookingid})">Xem</button>
+                    </td>
+                </tr>
+            `;
+            tableBody.innerHTML += row;
+        });
+    }
+
+    // Hàm lọc dữ liệu theo tên, ngày đặt, trạng thái
+    function search() {
+        const keyword = document.getElementById("keyword").value.toLowerCase();
+        const datebook = document.getElementById("datebook").value;
+        const status = document.getElementById("status").value;
+
+        const filteredData = bookings.filter(item => {
+            const fullName = (item.firstname + " " + item.lastname).toLowerCase();
+            const bookingDate = new Date(item.bookingdate).toISOString().split("T")[0]; // Chuyển về dạng YYYY-MM-DD
+
+            return (
+                (keyword === "" || fullName.includes(keyword)) &&
+                (datebook === "" || bookingDate === datebook) &&
+                (status === "" || item.bookingstatus === status)
+            );
+        });
+
+        renderTable(filteredData);
+    }
+
+    // Hàm reset bộ lọc
+    function refresh() {
+        document.getElementById("keyword").value = "";
+        document.getElementById("datebook").value = "";
+        document.getElementById("status").value = "";
+        renderTable(bookings);
+    }
+
+    function viewBooking(bookingId) {
+        // Tìm phiếu đặt sân theo ID
+        const booking = bookings.find(item => item.bookingid === bookingId);
+        if (!booking) {
+            console.error("Không tìm thấy phiếu đặt sân!");
+            return;
+        }
+
+        // Gán dữ liệu vào modal
+        document.getElementById("bookingId").value = booking.bookingid;
+        document.getElementById("customerName").value = `${booking.firstname} ${booking.lastname}`;
+        document.getElementById("bookingDate").value = new Date(booking.bookingdate).toLocaleString();
+        document.getElementById("phoneNumber").value = booking.phone;
+        document.getElementById("bookingStatus").value = booking.bookingstatus;
+        document.getElementById("bookingPrice").value = `${booking.bookingprice.toLocaleString()} VNĐ`;
+        document.getElementById("notes").value = booking.note || "";
+        // Kiểm tra nếu trạng thái không phải "Đã Cọc" thì disable dropdown
+        const statusDropdown = document.getElementById("bookingStatus");
+        statusDropdown.disabled = booking.bookingstatus === "Hoàn Thành" || booking.bookingstatus === "Hủy Đặt";
+        // Mở modal
+        $('#edit').modal('show');
+    }
+
+    function updateStatus() {
+        let bookingId = document.getElementById("bookingId").value;
+        let newStatus = document.getElementById("bookingStatus").value;
+
+        fetch(`/sportify/api/${bookingId}/status`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({newStatus: newStatus})
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Cập nhật thất bại');
+                }
+                return response.json();
+            })
+            .then(data => {
+                $('#edit').modal('hide'); // Đóng modal
+                showSuccessToast('Cập nhật thành công!'); // Hiển thị toast
+                loadBookings(); // Tải lại danh sách
+            })
+            .catch(error => {
+                console.error('Lỗi cập nhật:', error);
+                showSuccessToast('Cập nhật thất bại!');
+            });
+    }
+
+    window.onload = loadBookings;
+
+    function toast({ title = "", message = "", type = "info", duration = 3000 }) {
+        const main = document.getElementById("toast");
+        if (main) {
+            const toast = document.createElement("div");
+
+            // Auto remove toast
+            const autoRemoveId = setTimeout(function() {
+                main.removeChild(toast);
+            }, duration + 1000);
+
+            // Remove toast when clicked
+            toast.onclick = function(e) {
+                if (e.target.closest(".toast__close")) {
+                    main.removeChild(toast);
+                    clearTimeout(autoRemoveId);
+                }
+            };
+
+            const icons = {
+                success: "fas fa-check-circle",
+                info: "fas fa-info-circle",
+                warning: "fas fa-exclamation-circle",
+                error: "fas fa-exclamation-circle",
+            };
+            const icon = icons[type];
+            const delay = (duration / 1000).toFixed(2);
+
+            toast.classList.add("toastDesign", `toast--${type}`);
+            toast.style.animation = `slideInLeft ease .3s, fadeOut linear 1s ${delay}s forwards`;
+
+            toast.innerHTML = `
+									<div class="toast__icon">
+											<i class="${icon}"></i>
+									</div>
+									<div class="toast__body">
+											<h3 class="toast__title">${title}</h3>
+											<p class="toast__msg">${message}</p>
+									</div>
+									<div class="toast__close">
+											<i class="fas fa-times"></i>
+									</div>
+							`;
+            main.appendChild(toast);
+        }
+    }
+
+</script>
+<script>
+    $(document).ready(function() {
+        $('.custom-table').DataTable({
+            "paging": true,
+            "pageLength": 20,
+            "searching": false,
+            "ordering": true,
+            "info": false,
+            "lengthChange": false
+        });
+    });
+
+</script>
+</body>
+
+</html>
