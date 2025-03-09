@@ -1,4 +1,3 @@
-CREATE database sportify;
 USE sportify;
 
 CREATE TABLE users(
@@ -209,11 +208,11 @@ FOREIGN KEY (categoryid) REFERENCES categories(categoryid);
 ALTER TABLE contact
 ADD CONSTRAINT FK_contact_users
 FOREIGN KEY (username) REFERENCES users(username);
-Insert into Roles(`roleid`,`rolename`) values
+Insert into roles(`roleid`,`rolename`) values
 		('R01','Admin'),
         ('R02','Staff'),
         ('R03','User');
-insert into Users(`username`,`passwords`,`firstname`,`lastname`,`phone`,`email`,`address`,`image`,`gender`,`status`) values
+insert into users(`username`,`passwords`,`firstname`,`lastname`,`phone`,`email`,`address`,`image`,`gender`,`status`) values
 ('adminsportify','adminsportify','Quản Trị','Viên','0999999999','teamdev.sportify@gmail.com','TP HCM',null,0,1),
 ('phamtu2603','phamtu2603','Phạm Ngọc','Tú','0966109565','phamtu2603dev@gmail.com','Quận Gò Vấp,TP HCM',null,1,1),
 ('thaiptps19625','thaiptps19625','Phạm Thanh','Thái','0123456789','conga2402@gmail.com','TP HCM',null,1,1),
@@ -295,7 +294,7 @@ insert into Users(`username`,`passwords`,`firstname`,`lastname`,`phone`,`email`,
 ('user62','123456','Nguyễn Ngọc','Ánh','0123456789','anhngoc@gmail.com','TP HCM',null,0,1),
 ('user63','123456','Đặng Thu ','Hoài','0123456789','hoaithu@gmail.com','TP HCM',null,0,1),
 ('user64','123456','Nguyễn Khánh','Linh','0123456789','linhk@gmail.com','Quận 12,TP HCM',null,0,1);
-insert into Authorized(`username`,`roleid`) values
+insert into authorized(`username`,`roleid`) values
 ('adminsportify','R01'),
 ('phamtu2603','R03'),
 ('thaiptps19625','R03'),
@@ -745,7 +744,7 @@ Số lượng: 4 cái / set có hộp.
 - Được làm từ vải bền và chống thấm nước, ngăn chính rất thông thoáng, túi là sự lựa chọn hoàn hảo cho đôi giày của bạn.
 - Túi có kích thước: 36cm *21cm.
 - Có dây đeo rất thuận tiện khi di chuyển.', '20');
-insert into Orders(`username`,`createdate`,`address`,`note`,`orderstatus`,`paymentstatus`,`totalprice`) values
+insert into orders(`username`,`createdate`,`address`,`note`,`orderstatus`,`paymentstatus`,`totalprice`) values
 ('phamtu2603','2023-05-31 08:59:00','Lê Văn Thọ,Quận Gò Vấp, TP HCM',null,'Trả Hàng',0,105000),
 ('duyddk','2023-05-31 09:20:00','Bình Dương',null,'Hoàn Thành',1, 280000),
 ('baodmh','2023-05-31 17:33:00','TP Thủ Đức',null,'Hoàn Thành',1,325000),

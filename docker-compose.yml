@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  mysql:
+    image: zobo-my-sql
+    container_name: zobo-mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: sportify
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init-sql:/docker-entrypoint-initdb.d  # Mount thư mục chứa script SQL
+
+  app:
+    image: zobo-java-app
+    container_name: zobo-java-container
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sportify?allowPublicKeyRetrieval=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
